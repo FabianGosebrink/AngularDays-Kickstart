@@ -2,7 +2,7 @@ Labs for the angular workshop at the angular days 2018 from [Christian Liebel](h
 
 ## Labs:
 
-### Bindings (only Input)
+### 1. Bindings (only Input)
 
 https://stackblitz.com/edit/angular-5zuu2g
 
@@ -43,7 +43,7 @@ export class AppComponent  {
 
 </details>
 
-### Bindings (Event with $event)
+### 2. Bindings (Event with $event)
 
 https://stackblitz.com/edit/angular-zyc9xx
 
@@ -70,7 +70,7 @@ export class AppComponent  {
 
 </details>
 
-### Pipes
+### 3. Pipes
 
 https://stackblitz.com/edit/angular-82f7cm
 
@@ -106,6 +106,35 @@ export class YellPipe implements PipeTransform {
 
 {{ value | yell }}<br/>
 {{ value | yell:'???' }}
+```
+
+</details>
+
+### 4. Components
+
+https://stackblitz.com/edit/angular-jz9ivj
+
+<details><summary>Show Solution</summary>
+
+todo.component.ts
+
+```js
+@Component({
+    selector: 'app-todo',
+    templateUrl: './todo.component.html',
+    styleUrls: ['./todo.component.css'],
+})
+export class TodoComponent implements OnInit {
+    constructor() {}
+
+    ngOnInit() {}
+}
+```
+
+app.component.html
+
+```html
+<app-todo></app-todo>
 ```
 
 </details>
