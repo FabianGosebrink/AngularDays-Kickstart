@@ -150,3 +150,73 @@ app.component.html
 ```
 
 </details>
+
+### 5. Input / Output
+
+Start: https://stackblitz.com/edit/angular-jz9ivj
+
+<details><summary>Show Solution</summary>
+
+https://stackblitz.com/edit/angular-3bhmzs
+
+todo.component.ts
+
+```js
+@Component({
+  selector: 'app-todo',
+  templateUrl: './todo.component.html',
+  styleUrls: ['./todo.component.css']
+})
+export class TodoComponent implements OnInit {
+
+  @Input() todo: any;
+
+  @Output() done = new EventEmitter<any>();
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+  markTodoAsDone(){
+    this.done.emit(this.todo);
+  }
+
+}
+```
+
+todo.component.html
+
+```html
+<p>
+inside todo-component: <br/>
+{{todo | json}}
+</p>
+
+<button (click)="markTodoAsDone()">mark as done</button>
+```
+
+app.component.html
+
+```html
+<app-todo [todo]="todoObject" (done)="catchDoneEvent($event)"></app-todo>
+```
+
+app.component.ts
+
+```js
+@Component({
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: [ './app.component.css' ]
+})
+export class AppComponent  {
+  public todoObject = { name: "Wash clothes", done: false, id: 3 }
+
+  catchDoneEvent(todo: any) {
+    console.log(todo)
+  }
+}
+```
+
+</details>
