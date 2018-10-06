@@ -50,16 +50,62 @@ https://stackblitz.com/edit/angular-zyc9xx
 <details><summary>Show Solution</summary>
 
 ```js
-public onClick(event: MouseEvent): void {
-  alert(event.clientX);
-}
-public onMouseMove(event: MouseEvent): void {
-  console.log(event.clientX);
+export class AppComponent  {
+  public value = "Hello";
+  public color = "hotpink";
+
+  public onClick(event: MouseEvent): void {
+    alert(event.clientX);
+  }
+
+  public onMouseMove(event: MouseEvent): void {
+    console.log(event.clientX);
+  }
 }
 ```
 
 ```html
 <button (click)="onClick($event)" (mousemove)="onMouseMove($event)">Click me.</button>
+```
+
+</details>
+
+### Pipes
+
+https://stackblitz.com/edit/angular-82f7cm
+
+<details><summary>Show Solution</summary>
+
+```js
+export class AppComponent  {
+  public value = "Hello";
+  public number = 3.14159;
+}
+```
+
+```js
+@Pipe({
+    name: 'yell',
+})
+export class YellPipe implements PipeTransform {
+    transform(value: string, args: string): any {
+        const suffix = args || '!!!';
+
+        return `${value}${suffix}`;
+    }
+}
+```
+
+```html
+{{ value | uppercase }}	<br/>
+
+{{ number | percent }}	 <br/>
+{{ number | currency }}	<br/>
+{{ number | number:'0.5' }}	<br/>
+
+
+{{ value | yell }}<br/>
+{{ value | yell:'???' }}
 ```
 
 </details>
