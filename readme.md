@@ -311,7 +311,7 @@ export class ClickDirective {
 
 </details>
 
-### 6. Dependency Injection
+### 7. Dependency Injection
 
 Start: https://stackblitz.com/edit/angular-ar3wnk
 
@@ -404,6 +404,214 @@ export class TodoService {
 
   delete(todoId: number): void  { }
 
+}
+```
+
+</details>
+
+### 8. Structural Directives
+
+Start: https://stackblitz.com/edit/angular-vjgnec
+
+<details><summary>Show Solution</summary>
+
+https://stackblitz.com/edit/angular-mznjjg
+
+app.component.ts
+
+```js
+@Component({
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: [ './app.component.css' ]
+})
+export class AppComponent  {
+
+  private show = true;
+  todos = [];
+
+  constructor(private readonly elementRef: ElementRef,
+  private readonly todoService: TodoService){
+    console.log("elementRef from constructor", elementRef);
+
+    this.todos = todoService.getAll();
+  }
+
+  catchDoneEvent(todo: any) {
+    console.log(todo)
+  }
+
+  logElementRef(){
+    console.log("elementRef from console as property", this.elementRef);
+  }
+
+  toggle() {
+    this.show = !this.show;
+  }
+}
+```
+
+todo.service.ts
+
+```js
+@Injectable()
+export class TodoService {
+
+  private todos: Todo[] = [];
+
+  constructor() {
+    this.todos.push({ name: "Wash clothes", done: false, id: 3 });
+  }
+
+  create(todo: Todo) {
+
+  }
+
+  get(todoId: number)  {}
+
+  getAll(): Todo[]  {
+    return this.todos;
+  }
+
+  update(todo: Todo): void  {}
+
+  delete(todoId: number): void  {}
+
+}
+```
+
+todo.component.ts
+
+```js
+@Component({
+  selector: 'app-todo',
+  templateUrl: './todo.component.html',
+  styleUrls: ['./todo.component.css']
+})
+export class TodoComponent implements OnInit {
+
+  @Input() todo: any;
+
+  @Output() done = new EventEmitter<any>();
+
+  colorToBind = "blue";
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+  markTodoAsDone(todo: Todo) {
+    todo.done = !todo.done;
+    this.done.emit(todo);
+  }
+}
+```
+
+todo.component.html
+
+```html
+<label>
+  <input type="checkbox" [checked]="todo.done" (change)="markTodoAsDone(todo)">{{ todo.name }}
+</label>
+```
+
+</details>
+
+### 8. Structural Directives
+
+Start: https://stackblitz.com/edit/angular-mznjjg
+
+<details><summary>Show Solution</summary>
+
+https://stackblitz.com/edit/angular-jfyble
+
+app.module.ts
+
+```js
+@NgModule({
+    imports: [BrowserModule, FormsModule, HttpClientModule],
+    declarations: [
+        AppComponent,
+        HelloComponent,
+        YellPipe,
+        TodoComponent,
+        ColorDirective,
+        ClickDirective,
+    ],
+    providers: [{ provide: APP_NAME, useValue: 'My cool app' }, TodoService],
+    bootstrap: [AppComponent],
+})
+export class AppModule {
+    constructor(@Inject(APP_NAME) appName: string) {
+        console.log(appName);
+    }
+}
+```
+
+todo.service.ts
+
+```js
+@Injectable()
+export class TodoService {
+
+  private actionUrl = "https://tt-todos.azurewebsites.net/todos/"
+
+  constructor(private readonly httpClient: HttpClient) { }
+
+  create(todo: Todo) {
+    return this.httpClient.post<Todo>(this.actionUrl, todo);
+  }
+
+  get(todoId: number)  {
+    return this.httpClient.get<Todo>(`${this.actionUrl}${todoId}`);
+  }
+
+  getAll(): Observable<Todo[]>  {
+    return this.httpClient.get<Todo[]>(this.actionUrl);
+  }
+
+  update(todo: Todo)  {
+    return this.httpClient.put(`${this.actionUrl}${todo.id}`, todo);
+  }
+
+  delete(todoId: number)  {
+    return this.httpClient.delete(`${this.actionUrl}${todoId}`);
+  }
+}
+```
+
+app.component.ts
+
+```js
+@Component({
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: [ './app.component.css' ]
+})
+export class AppComponent  {
+
+  private show = true;
+  todos = [];
+
+  constructor(private readonly elementRef: ElementRef,
+  private readonly todoService: TodoService){
+    console.log("elementRef from constructor", elementRef);
+
+    todoService.getAll().subscribe(todos => this.todos = todos);
+  }
+
+  catchDoneEvent(todo: any) {
+    console.log(todo)
+  }
+
+  logElementRef(){
+    console.log("elementRef from console as property", this.elementRef);
+  }
+
+  toggle() {
+    this.show = !this.show;
+  }
 }
 ```
 
