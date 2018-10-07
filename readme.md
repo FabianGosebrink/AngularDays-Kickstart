@@ -555,7 +555,7 @@ todo.service.ts
 @Injectable()
 export class TodoService {
 
-  private actionUrl = "https://tt-todos.azurewebsites.net/todos/"
+  private actionUrl = "https://tt-todos.azurewebsites.net/todos"
 
   constructor(private readonly httpClient: HttpClient) { }
 
@@ -564,7 +564,7 @@ export class TodoService {
   }
 
   get(todoId: number)  {
-    return this.httpClient.get<Todo>(`${this.actionUrl}${todoId}`);
+    return this.httpClient.get<Todo>(`${this.actionUrl}/${todoId}`);
   }
 
   getAll(): Observable<Todo[]>  {
@@ -572,11 +572,11 @@ export class TodoService {
   }
 
   update(todo: Todo)  {
-    return this.httpClient.put(`${this.actionUrl}${todo.id}`, todo);
+    return this.httpClient.put(`${this.actionUrl}/${todo.id}`, todo);
   }
 
   delete(todoId: number)  {
-    return this.httpClient.delete(`${this.actionUrl}${todoId}`);
+    return this.httpClient.delete(`${this.actionUrl}/${todoId}`);
   }
 }
 ```
@@ -613,6 +613,68 @@ export class AppComponent  {
     this.show = !this.show;
   }
 }
+```
+
+</details>
+
+### 10. Async Pipe
+
+Start: https://stackblitz.com/edit/angular-jfyble
+
+<details><summary>Show Solution</summary>
+
+https://stackblitz.com/edit/angular-w7g8tc
+
+app.component.ts
+
+```js
+@Component({
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: [ './app.component.css' ]
+})
+export class AppComponent implements OnInit {
+
+  private show = true;
+  todos$: Observable<Todo[]>;
+
+  constructor(private readonly elementRef: ElementRef,
+  private readonly todoService: TodoService){
+    console.log("elementRef from constructor", elementRef);
+  }
+
+  ngOnInit() {
+    this.todos$ = this.todoService.getAll();
+  }
+
+  catchDoneEvent(todo: any) {
+    console.log(todo)
+  }
+
+  logElementRef(){
+    console.log("elementRef from console as property", this.elementRef);
+  }
+
+  toggle() {
+    this.show = !this.show;
+  }
+}
+```
+
+app.component.html
+
+```html
+<div *ngIf="todos$ | async as todos">
+	You have {{ todos.length }} todos!
+</div>
+
+<ul>
+	<li *ngFor="let todo of todos$ | async">
+		{{ todo.name }}
+	</li>
+</ul>
+
+<app-todo *ngFor="let todo of todos | async" [todo]="todo" (done)="catchDoneEvent($event)"></app-todo>
 ```
 
 </details>
