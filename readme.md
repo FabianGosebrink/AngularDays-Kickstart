@@ -693,8 +693,8 @@ app.module.ts
 const appRoutes = [
     { path: '', redirectTo: 'todos', pathMatch: 'full' },
     { path: 'todos', component: TodoListComponent },
-    { path: 'todos/:id', component: TodoEditComponent },
     { path: 'todos/new', component: TodoCreateComponent },
+    { path: 'todos/:id', component: TodoEditComponent },
     { path: '**', component: NotFoundComponent },
 ];
 
@@ -815,6 +815,54 @@ todo-edit.component.html
 <p>
 {{ todo$ | async | json }}
 </p>
+```
+
+</details>
+
+### 11. Routing
+
+Start: https://stackblitz.com/edit/angular-dlrdvt
+
+<details><summary>Show Solution</summary>
+
+https://stackblitz.com/edit/angular-4goufd
+
+todo-edit.component.html
+
+```html
+<form *ngIf="todo$ | async as todo" (ngSubmit)="onSubmit(todo)" #form="ngForm">
+  <input type="checkbox" [(ngModel)]="todo.done" name="done">
+  <input type="text" [(ngModel)]="todo.name" name="name" required minlength="5">
+  <button [disabled]="form.invalid">Submit!</button>
+</form>
+```
+
+todo-edit.component.ts
+
+```js
+@Component({
+  selector: 'app-todo-edit',
+  templateUrl: './todo-edit.component.html',
+  styleUrls: ['./todo-edit.component.css']
+})
+export class TodoEditComponent implements OnInit {
+
+  public todo$: Observable<Todo>;
+
+  constructor(private readonly activatedRoute: ActivatedRoute,
+              private readonly todoService: TodoService) { }
+
+  ngOnInit() {
+    this.todo$ = this.activatedRoute.params.pipe(
+      pluck('id'),
+      switchMap(id => this.todoService.get(+id))
+    );
+  }
+
+  onSubmit(todo: Todo) {
+    this.todoService.update(todo).subscribe();
+  }
+}
 ```
 
 </details>
