@@ -674,7 +674,147 @@ app.component.html
 	</li>
 </ul>
 
-<app-todo *ngFor="let todo of todos | async" [todo]="todo" (done)="catchDoneEvent($event)"></app-todo>
+<app-todo *ngFor="let todo of todos$ | async" [todo]="todo" (done)="catchDoneEvent($event)"></app-todo>
+```
+
+</details>
+
+### 11. Routing
+
+Start: https://stackblitz.com/edit/angular-w7g8tc
+
+<details><summary>Show Solution</summary>
+
+https://stackblitz.com/edit/angular-dlrdvt
+
+app.module.ts
+
+```js
+const appRoutes = [
+    { path: '', redirectTo: 'todos', pathMatch: 'full' },
+    { path: 'todos', component: TodoListComponent },
+    { path: 'todos/:id', component: TodoEditComponent },
+    { path: 'todos/new', component: TodoCreateComponent },
+    { path: '**', component: NotFoundComponent },
+];
+
+export const APP_NAME = new InjectionToken() < string > 'app-name';
+
+@NgModule({
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        RouterModule.forRoot(appRoutes, { useHash: false }),
+    ],
+    declarations: [
+        AppComponent,
+        HelloComponent,
+        YellPipe,
+        TodoComponent,
+        TodoEditComponent,
+        TodoListComponent,
+        TodoCreateComponent,
+        NotFoundComponent,
+        ColorDirective,
+        ClickDirective,
+    ],
+    providers: [{ provide: APP_NAME, useValue: 'My cool app' }, TodoService],
+    bootstrap: [AppComponent],
+})
+export class AppModule {
+    constructor(@Inject(APP_NAME) appName: string) {
+        console.log(appName);
+    }
+}
+```
+
+app.component.ts
+
+```js
+@Component({
+    selector: 'my-app',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+})
+export class AppComponent {}
+```
+
+app.component.html
+
+```html
+<a routerLink="/todos" routerLinkActive="my-active">Home</a> |
+<a routerLink="/todos/new" routerLinkActive="my-active">Create</a>
+<hr>
+<br/>
+<router-outlet></router-outlet>
+```
+
+todo.component.ts
+
+```js
+@Component({
+  selector: 'app-todo',
+  templateUrl: './todo.component.html',
+  styleUrls: ['./todo.component.css']
+})
+export class TodoComponent implements OnInit {
+
+  @Input() todo: any;
+
+  @Output() done = new EventEmitter<any>();
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+  markTodoAsDone(todo: Todo) {
+    todo.done = !todo.done;
+    this.done.emit(todo);
+  }
+}
+```
+
+todo.component.html
+
+```html
+<label >
+  <input type="checkbox" [checked]="todo.done" (change)="markTodoAsDone(todo)">
+  <a [routerLink]="todo.id">{{ todo.name }}</a>
+</label>
+```
+
+todo-edit.component.ts
+
+```js
+@Component({
+  selector: 'app-todo-edit',
+  templateUrl: './todo-edit.component.html',
+  styleUrls: ['./todo-edit.component.css']
+})
+export class TodoEditComponent implements OnInit {
+
+  public todo$: Observable<Todo>;
+
+  constructor(private readonly activatedRoute: ActivatedRoute,
+              private readonly todoService: TodoService) { }
+
+  ngOnInit() {
+    this.todo$ = this.activatedRoute.params.pipe(
+      pluck('id'),
+      switchMap(id => this.todoService.get(+id))
+    );
+  }
+}
+```
+
+todo-edit.component.html
+
+```html
+<p>
+{{ todo$ | async | json }}
+</p>
 ```
 
 </details>
