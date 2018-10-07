@@ -220,3 +220,191 @@ export class AppComponent  {
 ```
 
 </details>
+
+### 6. Directives
+
+Start: https://stackblitz.com/edit/angular-3bhmzs
+
+<details><summary>Show Solution</summary>
+
+https://stackblitz.com/edit/angular-ar3wnk
+
+todo.component.ts
+
+```js
+@Component({
+  selector: 'app-todo',
+  templateUrl: './todo.component.html',
+  styleUrls: ['./todo.component.css']
+})
+export class TodoComponent implements OnInit {
+
+  @Input() todo: any;
+
+  @Output() done = new EventEmitter<any>();
+
+  colorToBind = "blue";
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+  markTodoAsDone(){
+    this.done.emit(this.todo);
+  }
+}
+```
+
+todo.component.html
+
+```html
+<p appClick appColor color="green">
+  inside todo-component: <br/>
+  {{todo | json}}
+</p>
+<p>
+  <span appColor [color]="colorToBind">test to apply directive on</span>
+</p>
+
+<button (click)="markTodoAsDone()">mark as done</button>
+```
+
+color.directive.ts
+
+```js
+@Directive({
+    selector: '[appColor]',
+})
+export class ColorDirective implements OnChanges {
+    @Input()
+    color: string;
+
+    @HostBinding('style.color')
+    hostColor = this.color;
+
+    constructor(element: ElementRef) {
+        this.hostColor = this.color;
+    }
+
+    ngOnChanges() {
+        this.hostColor = this.color;
+    }
+}
+```
+
+click.directive.ts
+
+```js
+@Directive({
+    selector: '[appClick]',
+})
+export class ClickDirective {
+    @HostListener('click', ['$event'])
+    handleClick($event): void {
+        console.log('a message');
+    }
+
+    constructor() {}
+}
+```
+
+</details>
+
+### 6. Dependency Injection
+
+Start: https://stackblitz.com/edit/angular-ar3wnk
+
+<details><summary>Show Solution</summary>
+
+https://stackblitz.com/edit/angular-vjgnec
+
+app.component.ts
+
+```js
+@Component({
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: [ './app.component.css' ]
+})
+export class AppComponent  {
+  public todoObject = { name: "Wash clothes", done: false, id: 3 }
+
+  constructor(private readonly elementRef: ElementRef,
+  private readonly todoService: TodoService){
+    console.log("elementRef from constructor", elementRef);
+
+    console.log(todoService.getAll());
+  }
+
+  catchDoneEvent(todo: any) {
+    console.log(todo)
+  }
+
+  logElementRef(){
+    console.log("elementRef from console as property", this.elementRef);
+  }
+}
+```
+
+app.module.ts
+
+```js
+export const APP_NAME = new InjectionToken() < string > 'app-name';
+
+@NgModule({
+    imports: [BrowserModule, FormsModule],
+    declarations: [
+        AppComponent,
+        HelloComponent,
+        YellPipe,
+        TodoComponent,
+        ColorDirective,
+        ClickDirective,
+    ],
+    providers: [{ provide: APP_NAME, useValue: 'My cool app' }, TodoService],
+    bootstrap: [AppComponent],
+})
+export class AppModule {
+    constructor(@Inject(APP_NAME) appName: string) {
+        console.log(appName);
+    }
+}
+```
+
+todo.ts
+
+```js
+export class Todo {
+  name: string;
+  done: boolean;
+  id?:number;
+}
+```
+
+todo.service.ts
+
+```js
+@Injectable()
+export class TodoService {
+
+  private todos: Todo[] = [];
+
+  constructor() { }
+
+  create(todo: Todo) { }
+
+  get(todoId: number)  { }
+
+  getAll(): Todo[]  {
+    return this.todos;
+  }
+
+  update(todo: Todo): void  { }
+
+  delete(todoId: number): void  { }
+
+}
+```
+
+</details>
