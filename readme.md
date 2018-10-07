@@ -518,7 +518,7 @@ todo.component.html
 
 </details>
 
-### 8. Structural Directives
+### 9. Observables
 
 Start: https://stackblitz.com/edit/angular-mznjjg
 
