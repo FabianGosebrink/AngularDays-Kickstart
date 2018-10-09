@@ -261,9 +261,24 @@ app.component.html
 
 </details>
 
-### 5. Input / Output
+### 5. Input/Output
 
 Start: https://stackblitz.com/edit/angular-jz9ivj
+
+#### Input
+
+1. Extend your `TodoComponent` with an `@Input` field called `todo`.
+2. Add a new `myTodo` field to the AppComponent and assign a todo object to it: `{ name: "Wash clothes", done: false, id: 3 }`
+3. Pass the `myTodo` object to the `todo` component from the AppComponent’s template by using an input binding.
+4. In the `TodoComponent`’s template, bind the value of the `todo` field to the UI using the `JSON` pipe.
+
+#### Output
+
+1. Extend your `TodoComponent` with an `@Output` field called `done`.
+2. Add a `button` to your `TodoComponent` and an event binding for the `click` event of this button. When the button is clicked, emit the `done` event. Pass the current todo object as the event argument.
+3. In the `AppComponent`’s template, bind to the `done` event using an event binding and log the finalized item to the console.
+
+#### Solution
 
 <details><summary>Show Solution</summary>
 
