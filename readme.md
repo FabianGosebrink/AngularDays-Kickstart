@@ -737,7 +737,7 @@ Adjust your `TodoService` to now return Observables and upgrade the synchronous 
 - `update(todo: Todo): Observable<void>`
 - `delete(todoId: number): Observable<void>`
 
-#### Use HTTP service
+#### Use HttpClient
 
 In your AppModule, add HttpClientModule to the imports array
 
@@ -851,6 +851,44 @@ export class AppComponent  {
 ### 10. Async Pipe
 
 Start: https://stackblitz.com/edit/angular-jfyble
+
+#### Use Async Pipe
+
+Use the `async` pipe instead of manually subscribing and unsubscribing.
+
+**Instead of:**
+```ts
+public todos: Todo[];
+```
+
+**Use:**
+```ts
+public todos$: Observable<Todo[]>;
+```
+
+**Instead of:**
+```ts
+todoService.getAll().subscribe(todos => this.todos = todos);
+```
+
+**Use:**
+```ts
+this.todos$ = todoService.getAll();
+```
+
+**Instead of:**
+```ts
+<app-todo *ngFor="let todo of todos" [todo]="todo">
+</app-todo>
+```
+
+**Use:**
+```ts
+<app-todo *ngFor="let todo of todos$ | async" [todo]="todo">
+</app-todo>
+```
+
+#### Solution
 
 <details><summary>Show Solution</summary>
 
