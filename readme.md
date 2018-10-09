@@ -171,8 +171,8 @@ Implement the yell pipe as follows:
 
 | Interpolation                 | Value    |
 | ----------------------------- | -------- |
-| `{{ value \| yell }}`          | Hello!!! |
-| `{{ value \| yell:'???' }}`    | Hello??? |
+| `{{ value \| yell }}`         | Hello!!! |
+| `{{ value \| yell:'???' }}`   | Hello??? |
 
 #### Solution
 
@@ -217,6 +217,22 @@ export class YellPipe implements PipeTransform {
 ### 4. Components
 
 Start: https://stackblitz.com/edit/angular-82f7cm
+
+#### Create a new component
+
+Right-click the `app` folder and select _Angular Generator_, then _Component_.
+
+![2018-10-09_18-17-34](https://user-images.githubusercontent.com/6698344/46683102-9f989780-cbef-11e8-8d0b-5455deb5cc37.png)
+
+The new component should be named `todo`. Which files have been created? What’s the selector of the new component (`selector` property of `todo.component.ts`)?
+
+#### Use the new component in your AppComponent’s template
+
+Open the AppComponent’s template (i.e., HTML file) and use the new component there by adding an HTML element with the new component’s selector name (e.g., if the selector is `my-selector`, add `<my-selector></my-selector>` to the template).
+
+If you like, you can duplicate this HTML element to see the idea of componentization in action.
+
+#### Solution
 
 <details><summary>Show Solution</summary>
 
