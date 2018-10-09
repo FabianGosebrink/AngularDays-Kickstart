@@ -1,4 +1,4 @@
-Labs for the angular workshop at the angular days 2018 from [Christian Liebel](https://twitter.com/christianliebel?lang=en) and [Fabian Gosebrink](https://twitter.com/FabianGosebrink?lang=en)
+Labs for the angular workshop at the angular days 2018 from [Christian Liebel](https://twitter.com/christianliebel) and [Fabian Gosebrink](https://twitter.com/FabianGosebrink)
 
 ## Start
 
@@ -287,6 +287,8 @@ https://stackblitz.com/edit/angular-3bhmzs
 todo.component.ts
 
 ```js
+import { Input, Output, EventEmitter, OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
@@ -367,6 +369,8 @@ https://stackblitz.com/edit/angular-ar3wnk
 todo.component.ts
 
 ```js
+import { Input, Output, EventEmitter, OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
@@ -408,29 +412,23 @@ todo.component.html
 color.directive.ts
 
 ```js
+import { Directive, Input, HostBinding } from '@angular/core';
+
 @Directive({
-    selector: '[appColor]',
+  selector: '[appColor]'
 })
-export class ColorDirective implements OnChanges {
-    @Input()
-    color: string;
+export class ColorDirective {
 
-    @HostBinding('style.color')
-    hostColor = this.color;
-
-    constructor(element: ElementRef) {
-        this.hostColor = this.color;
-    }
-
-    ngOnChanges() {
-        this.hostColor = this.color;
-    }
+  @HostBinding('style.color')
+  @Input() color: string;
 }
 ```
 
 click.directive.ts
 
 ```js
+import { Directive, Input, HostListener } from '@angular/core';
+
 @Directive({
     selector: '[appClick]',
 })
@@ -496,6 +494,8 @@ https://stackblitz.com/edit/angular-vjgnec
 app.component.ts
 
 ```js
+import { ElementRef } from '@angular/core';
+
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
@@ -524,26 +524,28 @@ export class AppComponent  {
 app.module.ts
 
 ```js
-export const APP_NAME = new InjectionToken() < string > 'app-name';
+import { NgModule, InjectionToken, Inject } from '@angular/core';
+// other imports
+
+export const APP_NAME = new InjectionToken<string>('app-name');
 
 @NgModule({
-    imports: [BrowserModule, FormsModule],
-    declarations: [
-        AppComponent,
-        HelloComponent,
-        YellPipe,
-        TodoComponent,
-        ColorDirective,
-        ClickDirective,
-    ],
-    providers: [{ provide: APP_NAME, useValue: 'My cool app' }, TodoService],
-    bootstrap: [AppComponent],
+  imports:      [ BrowserModule, FormsModule ],
+  declarations: [ AppComponent, 
+                  HelloComponent, 
+                  YellPipe, 
+                  TodoComponent, 
+                  ColorDirective, 
+                  ClickDirective ],
+  providers: [{ provide: APP_NAME, useValue: 'My cool app' }, TodoService],
+  bootstrap:    [ AppComponent ]
 })
 export class AppModule {
-    constructor(@Inject(APP_NAME) appName: string) {
-        console.log(appName);
-    }
-}
+  constructor(@Inject(APP_NAME) appName: string){
+    console.log(appName);
+  }
+ }
+
 ```
 
 todo.ts
@@ -689,6 +691,8 @@ export class TodoService {
 todo.component.ts
 
 ```js
+import { Import, Output } from '@angular/core';
+
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
@@ -760,6 +764,8 @@ https://stackblitz.com/edit/angular-jfyble
 app.module.ts
 
 ```js
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpClientModule],
     declarations: [
@@ -815,6 +821,8 @@ export class TodoService {
 app.component.ts
 
 ```js
+import { ElementRef } from '@angular/core';
+
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
@@ -897,6 +905,8 @@ https://stackblitz.com/edit/angular-w7g8tc
 app.component.ts
 
 ```js
+import { ElementRef } from '@angular/core';
+
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
@@ -952,68 +962,6 @@ app.component.html
 
 Start: https://stackblitz.com/edit/angular-w7g8tc
 
-#### Generate components
-Add the following components:
-- TodoListComponent
-- TodoEditComponent
-- TodoCreateComponent
-- NotFoundComponent
-
-#### Define routes
-Define/assign the following routes:
-- todos
-- todos/:id
-- todos/new
-- **
-
-Redirect the default (empty) route to the todo list.
-
-#### Router outlet
-Add a `<router-outlet>` to your AppComponent:
-```html
-<router-outlet></router-outlet>
-```
-
-Then try out different routes by typing them into the address bar.
-- Which parts of the page change?
-- Which parts stay the same?
-
-#### Router links
-In your AppComponent, define two links:
-- Home (/todos)
-- Create (/todos/new)
-
-In TodoListComponent, request all todos and update the template:
-```html
-<ul>
-  <li *ngFor="let todo of todos$ | async"><a  [routerLink]="todo.id">{{ todo.name }}</a></li>
-</ul>
-```
-
-#### Active router links
-
-In AppComponent, add routerLinkActive:
-```html
-<a routerLink="/todos" routerLinkActive="my-active">Home</a>
-```
-
-Or, if you prefer:
-```html
-<a routerLink="/todos" routerLinkActive="my-active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-```
-
-Add a CSS style for a.my-active
-
-#### Activated route
-
-In TodoEditComponent, listen for changes of the ActivatedRoute and retrieve the record with the given ID from the TodoService and bind it to the view as follows:
-
-```
-{{ todo$ | async | json }}
-```
-
-#### Solution
-
 <details><summary>Show Solution</summary>
 
 https://stackblitz.com/edit/angular-dlrdvt
@@ -1021,7 +969,9 @@ https://stackblitz.com/edit/angular-dlrdvt
 app.module.ts
 
 ```js
-const appRoutes = [
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
     { path: '', redirectTo: 'todos', pathMatch: 'full' },
     { path: 'todos', component: TodoListComponent },
     { path: 'todos/new', component: TodoCreateComponent },
@@ -1154,30 +1104,6 @@ todo-edit.component.html
 
 Start: https://stackblitz.com/edit/angular-dlrdvt
 
-#### Add a form
-
-In TodoEditComponent, update the template to contain the following form. It should have to fields: A text field for editing the name and a checkbox for setting the done state. Implement onSubmit and send the updated todo to the server.
-
-```html
-<form *ngIf="todo$ | async as todo" (ngSubmit)="onSubmit(todo)">
-	<!-- … -->
-	<button>Submit!</button>
-</form>
-```
-
-#### Validation
-
-Now, add a required and minlength (5 characters) validation to the name field. Update the submit button to be disabled when the form is invalid:
-
-```html
-<form *ngIf="todo$ | async as todo" (ngSubmit)="onSubmit(todo)" #form="ngForm">
-	<!-- … -->
-	<button [disabled]="form.invalid">Submit!</button>
-</form>
-```
-
-#### Solution
-
 <details><summary>Show Solution</summary>
 
 https://stackblitz.com/edit/angular-4goufd
@@ -1195,6 +1121,8 @@ todo-edit.component.html
 todo-edit.component.ts
 
 ```js
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-todo-edit',
   templateUrl: './todo-edit.component.html',
