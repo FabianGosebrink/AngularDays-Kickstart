@@ -105,7 +105,9 @@ Start: https://stackblitz.com/edit/angular-5zuu2g
 #### Event Binding (Advanced)
 Adjust the implementations of `onClick()` and `onMouseMove()` to print the coordinates of the mouse (instead of printing `Hello!`)
 
-Hint: `public onClick(event: MouseEvent): void {}`
+Hints:
+- `public onClick(event: MouseEvent): void {}`
+- `(click)="onClick($event)"`
 
 MouseEvent documentation: https://developer.mozilla.org/de/docs/Web/API/MouseEvent
 
