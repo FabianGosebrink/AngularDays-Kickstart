@@ -1,4 +1,4 @@
-Labs for the angular workshop at the angular days 2018 from [Christian Liebel](https://twitter.com/christianliebel?lang=en) and [Fabian Gosebrink](https://twitter.com/FabianGosebrink?lang=en)
+Labs for the angular workshop at the angular days 2018 from [Christian Liebel](https://twitter.com/christianliebel) and [Fabian Gosebrink](https://twitter.com/FabianGosebrink)
 
 ## Start
 
@@ -287,6 +287,8 @@ https://stackblitz.com/edit/angular-3bhmzs
 todo.component.ts
 
 ```js
+import { Input, Output, EventEmitter, OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
