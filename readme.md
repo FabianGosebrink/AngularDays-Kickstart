@@ -8,7 +8,7 @@ Labs for the angular workshop at the angular days 2018 from [Christian Liebel](h
 
 ### 1. Bindings (only Input)
 
-Start: https://stackblitz.com/
+Start: https://stackblitz.com/fork/angular
 
 <details><summary>Show Solution</summary>
 
