@@ -106,8 +106,8 @@ Start: https://stackblitz.com/edit/angular-5zuu2g
 Adjust the implementations of `onClick()` and `onMouseMove()` to print the coordinates of the mouse (instead of printing `Hello!`)
 
 Hints:
-- `public onClick(event: MouseEvent): void {}`
 - `(click)="onClick($event)"`
+- `public onClick(event: MouseEvent): void {}`
 
 MouseEvent documentation: https://developer.mozilla.org/de/docs/Web/API/MouseEvent
 
@@ -141,6 +141,40 @@ export class AppComponent  {
 ### 3. Pipes
 
 Start: https://stackblitz.com/edit/angular-zyc9xx
+
+#### Interpolation
+
+Adjust your value binding from lab #1 to be printed as lowercase (Hint: `{{ value | lowercase }}`).
+
+Then, adjust it to be printed as UPPERCASE.
+
+#### Built-in pipes
+
+Add a new numeric field to your AppComponent (e.g., `public number = 3.14159;`). Bind this field to the template using the pipes:
+- `percent`
+- `currency`
+- `number` (showing five decimal places)
+
+Please use three interpolations (`{{ number | … }} {{ number | … }} {{ number | … }}`).
+
+#### Create a new pipe
+
+Right-click the `app` folder and select _Angular Generator_, then _Pipe_.
+
+![image](https://user-images.githubusercontent.com/6698344/46677681-5fcbb300-cbe3-11e8-85a2-c7577374e7fc.png)
+
+The pipe should be called `yell`. Open the generated file `yell.pipe.ts`.
+
+Implement the yell pipe as follows:
+- The yell pipe should suffix the bound value with three exclamation marks (e.g., `value + '!!!'` or `` `${value}!!!` ``).
+- The developer can optionally pass an argument to override the suffix (`args` parameter).
+
+| Interpolation                 | Value    |
+| ----------------------------- | -------- |
+| `{{ value \| yell }}`          | Hello!!! |
+| `{{ value \| yell:'???' }}`    | Hello??? |
+
+#### Solution
 
 <details><summary>Show Solution</summary>
 
