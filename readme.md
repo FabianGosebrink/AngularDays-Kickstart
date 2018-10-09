@@ -587,6 +587,38 @@ export class TodoService {
 
 Start: https://stackblitz.com/edit/angular-vjgnec
 
+#### *ngIf
+
+In your AppComponent’s template, add the following snippet:
+
+```html
+<button (click)="toggle()">Toggle</button>
+<div *ngIf="show">
+  I’m visible!
+</div>
+```
+
+On the component class, introduce a new `show` field and toggle it via a new `toggle()` method (Hint: `this.show = !this.show;`).
+
+#### *ngFor
+
+Adjust the template of TodoComponent to include:
+- A checkbox (input) to show the “done” state
+- A label to show the “name” text
+
+```html
+<label>
+	<input type="checkbox" [checked]="todo.done">
+	{{ todo.name }}
+</label>
+```
+
+In the AppComponent:
+- introduce a new field todos and assign the return value of todoService.getAll() to it
+- bind this field to the view using the \*ngFor structural directive with a todo component (`<app-todo>`) for each todo
+
+#### Solution
+
 <details><summary>Show Solution</summary>
 
 https://stackblitz.com/edit/angular-mznjjg
