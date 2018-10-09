@@ -350,6 +350,16 @@ export class AppComponent  {
 
 Start: https://stackblitz.com/edit/angular-3bhmzs
 
+#### Create a color directive
+
+Right-click the `app` folder and select _Angular Generator_, then _Directive_. Create a directive (e.g., named `color`) that takes a color as an input binding. The directive should set the color of the host element (using a host binding).
+
+#### Create a click directive
+
+Create another directive (e.g., named `click`) that adds a click handler to the elements where it’s placed on. Whenever the item is clicked, log a message to the console.
+
+#### Summary
+
 <details><summary>Show Solution</summary>
 
 https://stackblitz.com/edit/angular-ar3wnk
