@@ -446,7 +446,7 @@ export class ClickDirective {
 
 </details>
 
-### 7. Dependency Injection
+### 7. Dependency Injection/Services
 
 Start: https://stackblitz.com/edit/angular-ar3wnk
 
@@ -466,6 +466,26 @@ In your AppModule…
 2. Provide it in the module providers and assign it a certain value
 3. Consume it from the `AppModule`’s constructor
 4. Print the name to the console
+
+#### Create a new service
+
+Right-click the `app` folder and select _Angular Generator_, then _Class_.
+
+Create a new model class called `todo` and add the properties:
+- `name` (string)
+- `done` (boolean)
+- `id` (number, optional)
+
+Right-click the `app` folder and select _Angular Generator_, then _Service_.
+
+In your TodoService, add the following methods:
+- `create(todo: Todo): Todo`
+- `get(todoId: number): Todo`
+- `getAll(): Todo[]`
+- `update(todo: Todo): void`
+- `delete(todoId: number): void`
+
+Add a very basic, synchronous implementation for getAll. Inject your TodoService into the AppComponent (don’t forget to update the imports on top). Log the list of todos to the console.
 
 #### Solution
 
