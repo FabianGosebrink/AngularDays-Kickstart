@@ -657,21 +657,6 @@ export class AppComponent  {
 }
 ```
 
-app.component.html
-
-```html
-<button (click)="toggle()">Toggle</button>
-<div *ngIf="show">
-	I am visible!
-</div>
-
-<ul>
-  <li *ngFor="let todo of todos">{{todo.name}}</li>
-</ul>
-
-<app-todo *ngFor="let todo of todos" [todo]="todo" (done)="catchDoneEvent($event)"></app-todo>
-```
-
 todo.service.ts
 
 ```js
@@ -742,6 +727,31 @@ todo.component.html
 ### 9. Observables
 
 Start: https://stackblitz.com/edit/angular-mznjjg
+
+#### Adjust service
+
+Adjust your `TodoService` to now return Observables and upgrade the synchronous value in `getAll()` to an Observable (via `of()`).
+- `create(todo: Todo): Observable<Todo>`
+- `get(todoId: number): Observable<Todo>`
+- `getAll(): Observable<Todo[]>`
+- `update(todo: Todo): Observable<void>`
+- `delete(todoId: number): Observable<void>`
+
+#### Use HTTP service
+
+In your AppModule, add HttpClientModule to the imports array
+
+Add a constructor to TodoService and request an instance of HttpClient and use HTTP requests instead of returning synchronous data using the following URLs:
+
+| Method | Action     | URL                                        |
+| ------ | ---------- | ------------------------------------------ |
+| GET    | get all    | https://tt-todos.azurewebsites.net/todos   |
+| GET    | get single | https://tt-todos.azurewebsites.net/todos/1 |
+| POST   | create     | https://tt-todos.azurewebsites.net/todos   |
+| PUT    | update     | https://tt-todos.azurewebsites.net/todos/1 |
+| DELETE | delete     | https://tt-todos.azurewebsites.net/todos/1 |
+
+#### Solution
 
 <details><summary>Show Solution</summary>
 
