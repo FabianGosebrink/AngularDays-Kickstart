@@ -854,7 +854,7 @@ Start: https://stackblitz.com/edit/angular-jfyble
 
 #### Use Async Pipe
 
-Use the `async` pipe instead of manually subscribing and unsubscribing.
+Use the `async` pipe instead of manually subscribing.
 
 **Instead of:**
 ```ts
