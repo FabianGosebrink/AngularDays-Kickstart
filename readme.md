@@ -657,6 +657,21 @@ export class AppComponent  {
 }
 ```
 
+app.component.html
+
+```html
+<button (click)="toggle()">Toggle</button>
+<div *ngIf="show">
+	I am visible!
+</div>
+
+<ul>
+  <li *ngFor="let todo of todos">{{todo.name}}</li>
+</ul>
+
+<app-todo *ngFor="let todo of todos" [todo]="todo" (done)="catchDoneEvent($event)"></app-todo>
+```
+
 todo.service.ts
 
 ```js
