@@ -358,7 +358,7 @@ Right-click the `app` folder and select _Angular Generator_, then _Directive_. C
 
 Create another directive (e.g., named `click`) that adds a click handler to the elements where it’s placed on. Whenever the item is clicked, log a message to the console.
 
-#### Summary
+#### Solution
 
 <details><summary>Show Solution</summary>
 
@@ -450,6 +450,25 @@ export class ClickDirective {
 
 Start: https://stackblitz.com/edit/angular-ar3wnk
 
+#### Injecting ElementRef
+
+In your AppComponent…
+1. `import {ElementRef} from '@angular/core';`
+2. Request an instance of `ElementRef` via constructor injection
+3. Log the instance to the console
+4. Inspect it
+5. Is the instance provided by the root injector, a module or a component?
+
+#### Injection Tokens
+
+In your AppModule…
+1. Define an `APP_NAME` injection token (string)
+2. Provide it in the module providers and assign it a certain value
+3. Consume it from the `AppModule`’s constructor
+4. Print the name to the console
+
+#### Solution
+
 <details><summary>Show Solution</summary>
 
 https://stackblitz.com/edit/angular-vjgnec
@@ -473,7 +492,7 @@ export class AppComponent  {
   }
 
   catchDoneEvent(todo: any) {
-    console.log(todo)
+    console.log(todo);
   }
 
   logElementRef(){
