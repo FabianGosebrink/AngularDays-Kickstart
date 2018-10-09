@@ -6,9 +6,58 @@ Labs for the angular workshop at the angular days 2018 from [Christian Liebel](h
 
 ## Labs
 
-### 1. Bindings (only Input)
+### 1. Bindings
 
 Start: https://stackblitz.com/fork/angular
+
+#### Interpolation
+In your freshly created project, open the file `src/app/app.component.html` and try the following bindings (one after another). You can completely remove the existing contents of this file.
+
+1. `{{ 'hallo' }}`
+2. `{{ 3 }}`
+3. `{{ 17 + 4 }}`
+4. `{{ '<div>Does this work?</div>' }}`
+5. `{{ alert('boom') }}`
+
+Which values do you see in the preview pane? Are there any error messages?
+
+#### Interpolation II
+Now, open the file `src/app/app.component.ts` and introduce a new field called `value` within the `AppComponent` class:
+
+```ts
+export class AppComponent {
+  // …
+  public value = "Hello";
+}
+```
+
+Bind the value of this field to the template file, by adding the following interpolation to `src/app/app.component.html`.
+
+```html
+{{ value }}
+```
+
+Then, `Hello` should show up in the preview pane.
+
+#### Property Binding
+
+1. Declare a new field called `color` on your component instance and initialize it with a CSS color value (e.g., `hotpink`)
+2. Create a new `div` element in the AppComponent’s HTML template (Hint: `<div></div>`)
+3. Bind the value of the field to the background color of the `div` element (Hint—add the following attribute assignment to the `div` node: `[style.backgroundColor]="color"`)
+
+The square brackets are not a typo! They might look odd, but it woll work.
+
+#### Event Binding
+
+1. Implement a new method `onClick` on the component instance that opens an alert box (Hint: `public onClick() { alert('Hello!'); }`)
+2. Create a new `button` element in the AppComponent’s HTML template (Hint: `<button>Click me.</button>`)
+3. Bind the click event of the button to the `onClick` method (Hint—add the following attribute assignment to the `button` node: `(click)="onClick()"`)
+4. Implement a new method `onMouseMove` on the component instance that logs to the console (Hint: `console.log('Hello!')`)
+5. Bind the `mousemove` event of the button to `onMouseMove`
+
+Again, the brackets are not a typo. It will work out just fine.
+
+#### Solution
 
 <details><summary>Show Solution</summary>
 
@@ -52,6 +101,15 @@ export class AppComponent  {
 ### 2. Bindings (Event with $event)
 
 Start: https://stackblitz.com/edit/angular-5zuu2g
+
+#### Event Binding (Advanced)
+Adjust the implementations of `onClick()` and `onMouseMove()` to print the coordinates of the mouse (instead of printing `Hello!`)
+
+Hint: `public onClick(event: MouseEvent): void {}`
+
+MouseEvent documentation: https://developer.mozilla.org/de/docs/Web/API/MouseEvent
+
+#### Solution
 
 <details><summary>Show Solution</summary>
 
