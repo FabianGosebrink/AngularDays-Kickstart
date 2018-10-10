@@ -535,19 +535,6 @@ export class AppComponent  {
 }
 ```
 
-app.component.html
-
-```html
-<button (click)="toggle()">Toggle</button>	
-<div *ngIf="show">	
-	I am visible!	
-</div>	
- <ul>	
-  <li *ngFor="let todo of todos">{{todo.name}}</li>	
-</ul>	
- <app-todo *ngFor="let todo of todos" [todo]="todo" (done)="catchDoneEvent($event)"></app-todo>	
-```
-
 app.module.ts
 
 ```js
@@ -633,9 +620,18 @@ On the component class, introduce a new `show` field and toggle it via a new `to
 
 #### *ngFor
 
-Adjust the template of TodoComponent to include:
-- A checkbox (input) to show the “done” state
-- A label to show the “name” text
+In the AppComponent, introduce a new field todos and assign the return value of todoService.getAll() to it.
+Bind this field to the view using the *ngFor structural directive and an unordered list (<ul>) with one list item (<li>) for each todo:
+
+```html
+<ul>
+  <li *ngFor="let todo of todos"></li>
+</ul>
+```
+
+Next, iterate over your TodoComponent (app-todo) instead and pass the todo via the todo property binding. Adjust the template of TodoComponent to include:
+- a checkbox (input) to show the “done” state
+- a label to show the “name” text
 
 ```html
 <label>
@@ -643,10 +639,6 @@ Adjust the template of TodoComponent to include:
 	{{ todo.name }}
 </label>
 ```
-
-In the AppComponent:
-- introduce a new field todos and assign the return value of todoService.getAll() to it
-- bind this field to the view using the \*ngFor structural directive with a todo component (`<app-todo>`) for each todo
 
 </details>
 
@@ -686,6 +678,19 @@ export class AppComponent  {
     this.show = !this.show;
   }
 }
+```
+
+app.component.html
+
+```html
+<button (click)="toggle()">Toggle</button>	
+<div *ngIf="show">	
+	I am visible!	
+</div>	
+ <ul>	
+  <li *ngFor="let todo of todos">{{todo.name}}</li>	
+</ul>	
+ <app-todo *ngFor="let todo of todos" [todo]="todo" (done)="catchDoneEvent($event)"></app-todo>	
 ```
 
 todo.service.ts
