@@ -10,6 +10,7 @@ Labs for the angular workshop at the angular days 2018 from [Christian Liebel](h
 
 Start: https://stackblitz.com/fork/angular
 
+<details><summary>Show Labs</summary>
 #### Interpolation
 In your freshly created project, open the file `src/app/app.component.html` and try the following bindings (one after another). You can completely remove the existing contents of this file.
 
@@ -57,7 +58,7 @@ The square brackets are not a typo! They might look odd, but it woll work.
 
 Again, the brackets are not a typo. It will work out just fine.
 
-#### Solution
+</details>
 
 <details><summary>Show Solution</summary>
 
@@ -102,6 +103,7 @@ export class AppComponent  {
 
 Start: https://stackblitz.com/edit/angular-5zuu2g
 
+<details><summary>Show Labs</summary>
 #### Event Binding (Advanced)
 Adjust the implementations of `onClick()` and `onMouseMove()` to print the coordinates of the mouse (instead of printing `Hello!`)
 
@@ -111,7 +113,7 @@ Hints:
 
 MouseEvent documentation: https://developer.mozilla.org/de/docs/Web/API/MouseEvent
 
-#### Solution
+</details>
 
 <details><summary>Show Solution</summary>
 
@@ -142,6 +144,7 @@ export class AppComponent  {
 
 Start: https://stackblitz.com/edit/angular-zyc9xx
 
+<details><summary>Show Labs</summary>
 #### Interpolation
 
 Adjust your value binding from lab #1 to be printed as lowercase (Hint: `{{ value | lowercase }}`).
@@ -174,7 +177,7 @@ Implement the yell pipe as follows:
 | `{{ value \| yell }}`         | Hello!!! |
 | `{{ value \| yell:'???' }}`   | Hello??? |
 
-#### Solution
+</details>
 
 <details><summary>Show Solution</summary>
 
@@ -218,6 +221,7 @@ export class YellPipe implements PipeTransform {
 
 Start: https://stackblitz.com/edit/angular-82f7cm
 
+<details><summary>Show Labs</summary>
 #### Create a new component
 
 Right-click the `app` folder and select _Angular Generator_, then _Component_.
@@ -232,7 +236,7 @@ Open the AppComponent’s template (i.e., HTML file) and use the new component t
 
 If you like, you can duplicate this HTML element to see the idea of componentization in action.
 
-#### Solution
+</details>
 
 <details><summary>Show Solution</summary>
 
@@ -265,6 +269,7 @@ app.component.html
 
 Start: https://stackblitz.com/edit/angular-jz9ivj
 
+<details><summary>Show Labs</summary>
 #### Input
 
 1. Extend your `TodoComponent` with an `@Input` field called `todo`.
@@ -278,7 +283,7 @@ Start: https://stackblitz.com/edit/angular-jz9ivj
 2. Add a `button` to your `TodoComponent` and an event binding for the `click` event of this button. When the button is clicked, emit the `done` event. Pass the current todo object as the event argument.
 3. In the `AppComponent`’s template, bind to the `done` event using an event binding and log the finalized item to the console.
 
-#### Solution
+</details>
 
 <details><summary>Show Solution</summary>
 
@@ -352,6 +357,8 @@ export class AppComponent  {
 
 Start: https://stackblitz.com/edit/angular-3bhmzs
 
+<details><summary>Show Labs</summary>
+	
 #### Create a color directive
 
 Right-click the `app` folder and select _Angular Generator_, then _Directive_. Create a directive (e.g., named `color`) that takes a color as an input binding. The directive should set the color of the host element (using a host binding).
@@ -360,7 +367,7 @@ Right-click the `app` folder and select _Angular Generator_, then _Directive_. C
 
 Create another directive (e.g., named `click`) that adds a click handler to the elements where it’s placed on. Whenever the item is clicked, log a message to the console.
 
-#### Solution
+</details>
 
 <details><summary>Show Solution</summary>
 
@@ -448,6 +455,7 @@ export class ClickDirective {
 
 Start: https://stackblitz.com/edit/angular-ar3wnk
 
+<details><summary>Show Labs</summary>
 #### Injecting ElementRef
 
 In your AppComponent…
@@ -485,7 +493,7 @@ In your TodoService, add the following methods:
 
 Add a very basic, synchronous implementation for getAll. Inject your TodoService into the AppComponent (don’t forget to update the imports on top). Log the list of todos to the console.
 
-#### Solution
+</details>
 
 <details><summary>Show Solution</summary>
 
@@ -602,6 +610,7 @@ export class TodoService {
 
 Start: https://stackblitz.com/edit/angular-vjgnec
 
+<details><summary>Show Labs</summary>
 #### *ngIf
 
 In your AppComponent’s template, add the following snippet:
@@ -632,7 +641,7 @@ In the AppComponent:
 - introduce a new field todos and assign the return value of todoService.getAll() to it
 - bind this field to the view using the \*ngFor structural directive with a todo component (`<app-todo>`) for each todo
 
-#### Solution
+</details>
 
 <details><summary>Show Solution</summary>
 
@@ -745,6 +754,8 @@ todo.component.html
 
 Start: https://stackblitz.com/edit/angular-mznjjg
 
+<details><summary>Show Labs</summary>
+	
 #### Adjust service
 
 Adjust your `TodoService` to now return Observables and upgrade the synchronous value in `getAll()` to an Observable (via `of()`).
@@ -768,7 +779,7 @@ Add a constructor to TodoService and request an instance of HttpClient and use H
 | PUT    | update     | https://tt-todos.azurewebsites.net/todos/1 |
 | DELETE | delete     | https://tt-todos.azurewebsites.net/todos/1 |
 
-#### Solution
+</details>
 
 <details><summary>Show Solution</summary>
 
@@ -873,6 +884,8 @@ export class AppComponent  {
 
 Start: https://stackblitz.com/edit/angular-jfyble
 
+<details><summary>Show Labs</summary>
+	
 #### Use Async Pipe
 
 Use the `async` pipe instead of manually subscribing.
@@ -908,8 +921,7 @@ this.todos$ = todoService.getAll();
 <app-todo *ngFor="let todo of todos$ | async" [todo]="todo">
 </app-todo>
 ```
-
-#### Solution
+</details>
 
 <details><summary>Show Solution</summary>
 
@@ -975,6 +987,8 @@ app.component.html
 
 Start: https://stackblitz.com/edit/angular-w7g8tc
 
+<details><summary>Show Labs</summary>
+	
 #### Generate components	
 Add the following components:	
 - TodoListComponent	
@@ -1003,11 +1017,12 @@ Then try out different routes by typing them into the address bar.
 #### Router links	
 In your AppComponent, define two links:	
 - Home (/todos)	
-- Create (/todos/new)	
- In TodoListComponent, request all todos and update the template:	
+- Create (/todos/new)
+
+In TodoListComponent, request all todos and update the template:	
 ```html	
 <ul>	
-  <li *ngFor="let todo of todos$ | async"><a  [routerLink]="todo.id">{{ todo.name }}</a></li>	
+  <li *ngFor="let todo of todos$ | async"><a [routerLink]="todo.id">{{ todo.name }}</a></li>	
 </ul>	
 ```	
 #### Active router links	
@@ -1025,7 +1040,7 @@ Add a CSS style for a.my-active
  ```	
 {{ todo$ | async | json }}	
 ```	
-#### Solution	
+</details>
 
 <details><summary>Show Solution</summary>
 
@@ -1169,6 +1184,8 @@ todo-edit.component.html
 
 Start: https://stackblitz.com/edit/angular-dlrdvt
 
+<details><summary>Show Labs</summary>
+	
 #### Add a form	
  In TodoEditComponent, update the template to contain the following form. It should have to fields: A text field for editing the name and a checkbox for setting the done state. Implement onSubmit and send the updated todo to the server.	
 
@@ -1187,8 +1204,7 @@ Start: https://stackblitz.com/edit/angular-dlrdvt
 	<button [disabled]="form.invalid">Submit!</button>	
 </form>	
 ```	
-
-#### Solution	
+</details>
 
 <details><summary>Show Solution</summary>
 
