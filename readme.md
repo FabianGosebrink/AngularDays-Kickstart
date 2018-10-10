@@ -11,6 +11,7 @@ Labs for the angular workshop at the angular days 2018 from [Christian Liebel](h
 Start: https://stackblitz.com/fork/angular
 
 <details><summary>Show Labs</summary>
+	
 #### Interpolation
 In your freshly created project, open the file `src/app/app.component.html` and try the following bindings (one after another). You can completely remove the existing contents of this file.
 
@@ -104,6 +105,7 @@ export class AppComponent  {
 Start: https://stackblitz.com/edit/angular-5zuu2g
 
 <details><summary>Show Labs</summary>
+	
 #### Event Binding (Advanced)
 Adjust the implementations of `onClick()` and `onMouseMove()` to print the coordinates of the mouse (instead of printing `Hello!`)
 
@@ -145,6 +147,7 @@ export class AppComponent  {
 Start: https://stackblitz.com/edit/angular-zyc9xx
 
 <details><summary>Show Labs</summary>
+	
 #### Interpolation
 
 Adjust your value binding from lab #1 to be printed as lowercase (Hint: `{{ value | lowercase }}`).
@@ -222,6 +225,7 @@ export class YellPipe implements PipeTransform {
 Start: https://stackblitz.com/edit/angular-82f7cm
 
 <details><summary>Show Labs</summary>
+	
 #### Create a new component
 
 Right-click the `app` folder and select _Angular Generator_, then _Component_.
@@ -270,6 +274,7 @@ app.component.html
 Start: https://stackblitz.com/edit/angular-jz9ivj
 
 <details><summary>Show Labs</summary>
+	
 #### Input
 
 1. Extend your `TodoComponent` with an `@Input` field called `todo`.
@@ -456,6 +461,7 @@ export class ClickDirective {
 Start: https://stackblitz.com/edit/angular-ar3wnk
 
 <details><summary>Show Labs</summary>
+	
 #### Injecting ElementRef
 
 In your AppComponent…
@@ -611,6 +617,7 @@ export class TodoService {
 Start: https://stackblitz.com/edit/angular-vjgnec
 
 <details><summary>Show Labs</summary>
+	
 #### *ngIf
 
 In your AppComponent’s template, add the following snippet:
@@ -1040,6 +1047,7 @@ Add a CSS style for a.my-active
  ```	
 {{ todo$ | async | json }}	
 ```	
+
 </details>
 
 <details><summary>Show Solution</summary>
@@ -1204,6 +1212,7 @@ Start: https://stackblitz.com/edit/angular-dlrdvt
 	<button [disabled]="form.invalid">Submit!</button>	
 </form>	
 ```	
+
 </details>
 
 <details><summary>Show Solution</summary>
