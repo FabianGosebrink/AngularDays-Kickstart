@@ -621,7 +621,7 @@ On the component class, introduce a new `show` field and toggle it via a new `to
 #### *ngFor
 
 In the AppComponent, introduce a new field todos and assign the return value of todoService.getAll() to it.
-Bind this field to the view using the *ngFor structural directive and an unordered list (<ul>) with one list item (<li>) for each todo:
+Bind this field to the view using the `*ngFor` structural directive and an unordered list (`ul`) with one list item (`li`) for each todo:
 
 ```html
 <ul>
